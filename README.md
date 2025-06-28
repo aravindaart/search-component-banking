@@ -1,7 +1,7 @@
 # 🔍 Search Component Banking
 
 [![CI/CD Pipeline](https://github.com/aravindaart/search-component-banking/actions/workflows/deploy.yml/badge.svg)](https://github.com/aravindaart/search-component-banking/actions/workflows/deploy.yml)
-[![Test Coverage](https://img.shields.io/badge/coverage-95.6%25-brightgreen)](https://codecov.io/gh/aravindaart/search-component-banking)
+[![Test Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://codecov.io/gh/aravindaart/search-component-banking)
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://aravindaart.github.io/search-component-banking/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-100%25-blue)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
