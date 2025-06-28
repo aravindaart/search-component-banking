@@ -1,0 +1,87 @@
+/**
+ * Theme Variables - Light and Dark Mode Support
+ */
+
+@use './variables' as *;
+
+// Light theme (default)
+:root {
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #{$neutral-50};
+  --bg-tertiary: #{$neutral-100};
+  
+  --text-primary: #{$neutral-900};
+  --text-secondary: #{$neutral-700};
+  --text-muted: #{$neutral-500};
+  
+  --border-color: #{$neutral-300};
+  --border-focus: #{$indigo-500};
+  
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+  
+  --accent-primary: #{$primary-blue};
+  --accent-secondary: #{$secondary-blue};
+  --accent-light: #{$indigo-50};
+  
+  --hover-bg: #{$neutral-200};
+  --selected-bg: #{$indigo-100};
+  
+  // Glass effect variables
+  --glass-bg: rgba(249, 250, 251, 0.95);
+  --glass-border: rgba(209, 213, 219, 0.3);
+}
+
+// Dark theme
+[data-theme="dark"] {
+  --bg-primary: #{$neutral-900};
+  --bg-secondary: #{$neutral-800};
+  --bg-tertiary: #{$neutral-700};
+  
+  --text-primary: #{$neutral-100};
+  --text-secondary: #{$neutral-300};
+  --text-muted: #{$neutral-400};
+  
+  --border-color: #{$neutral-700};
+  --border-focus: #{$indigo-400};
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  
+  --accent-primary: #{$indigo-400};
+  --accent-secondary: #{$indigo-500};
+  --accent-light: rgba(99, 102, 241, 0.1);
+  
+  --hover-bg: #{$neutral-800};
+  --selected-bg: rgba(99, 102, 241, 0.2);
+  
+  // Glass effect variables for dark mode
+  --glass-bg: rgba(31, 41, 55, 0.8);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #{$neutral-800};
+    --text-secondary: #{$neutral-800};
+  }
+  
+  [data-theme="dark"] {
+    --border-color: #{$neutral-100};
+    --text-secondary: #{$neutral-100};
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

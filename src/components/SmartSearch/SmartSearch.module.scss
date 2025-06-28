@@ -1,0 +1,119 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use '../../styles/themes';
+
+.smartSearch {
+  position: relative;
+  width: 100%;
+  font-family: $font-family;
+  
+  &.small {
+    max-width: 300px;
+  }
+  
+  &.medium {
+    max-width: 400px;
+  }
+  
+  &.large {
+    max-width: 500px;
+  }
+  
+  // Add subtle glow effect when active
+  &:focus-within {
+    transform: translateY(-1px);
+    
+    .searchInput {
+      box-shadow: 0 0 0 3px var(--accent-light), var(--shadow-lg);
+    }
+  }
+  
+  &.fullWidth {
+    max-width: none;
+  }
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.inputContainer {
+  position: relative;
+  z-index: 1;
+}
+
+.dropdownContainer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: $z-dropdown;
+}
+
+// Theme switching
+.smartSearch[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+// Focus management for accessibility
+.smartSearch:focus-within {
+  .inputContainer {
+    z-index: $z-dropdown + 1;
+  }
+}
+
+// Responsive behavior
+@include mobile-up {
+  .smartSearch {
+    &.small {
+      max-width: 250px;
+    }
+    
+    &.medium {
+      max-width: 350px;
+    }
+    
+    &.large {
+      max-width: 450px;
+    }
+  }
+  
+  .dropdownContainer {
+    left: 0;
+    right: 0;
+  }
+}
+
+@include tablet-up {
+  .smartSearch {
+    &.small {
+      max-width: 300px;
+    }
+    
+    &.medium {
+      max-width: 400px;
+    }
+    
+    &.large {
+      max-width: 500px;
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .smartSearch {
+    .inputContainer,
+    .dropdownContainer {
+      filter: contrast(1.2);
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .smartSearch * {
+    transition-duration: 0.01ms !important;
+  }
+}

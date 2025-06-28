@@ -1,0 +1,253 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use '../../styles/themes';
+
+.searchInput {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  @include input-base;
+  padding-left: $spacing-10;
+  padding-right: $spacing-10;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  
+  &:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--accent-light);
+  }
+  
+  &.small {
+    height: $input-height-sm;
+    font-size: $font-size-sm;
+    padding-left: $spacing-8;
+    padding-right: $spacing-8;
+  }
+  
+  &.medium {
+    height: $input-height-md;
+  }
+  
+  &.large {
+    height: $input-height-lg;
+    font-size: $font-size-lg;
+    padding-left: $spacing-12;
+    padding-right: $spacing-12;
+  }
+  
+  &.filled {
+    background: var(--bg-secondary);
+    border: none;
+    
+    &:focus {
+      box-shadow: inset 0 0 0 2px var(--border-focus);
+    }
+  }
+  
+  &.error {
+    border-color: $error-color;
+    
+    &:focus {
+      box-shadow: 0 0 0 3px rgba($error-color, 0.2);
+    }
+  }
+  
+  &:disabled {
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+  }
+  
+  &.withSearchButton {
+    padding-right: $spacing-12;
+    
+    &.small {
+      padding-right: $spacing-10;
+    }
+    
+    &.large {
+      padding-right: $spacing-12;
+    }
+  }
+}
+
+.searchIcon {
+  position: absolute;
+  left: $spacing-3;
+  color: var(--text-muted);
+  pointer-events: none;
+  
+  .small & {
+    left: $spacing-2;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .large & {
+    left: $spacing-4;
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.searchButton {
+  position: absolute;
+  right: $spacing-1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 32px;
+  border: none;
+  background: var(--accent-primary);
+  color: white;
+  cursor: pointer;
+  border-radius: $border-radius;
+  transition: all $transition-fast;
+  
+  &:hover:not(:disabled) {
+    background: var(--accent-secondary);
+    transform: translateY(-1px);
+  }
+  
+  &:disabled {
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    cursor: not-allowed;
+  }
+  
+  &:focus {
+    @include focus-ring;
+  }
+  
+  &.inactive {
+    opacity: 0.5;
+    cursor: default;
+    
+    &:hover {
+      background: var(--accent-primary);
+      transform: none;
+    }
+  }
+  
+  &.small {
+    width: 28px;
+    height: 24px;
+  }
+  
+  &.large {
+    width: 44px;
+    height: 40px;
+  }
+}
+
+.clearButton {
+  position: absolute;
+  right: $spacing-3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all $transition-fast;
+  
+  // Position differently when search button is present
+  .withSearchButton & {
+    right: 44px; // 36px (search button width) + 8px (spacing)
+  }
+  
+  &.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  &:hover {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    transform: scale(1.1);
+  }
+  
+  &:focus {
+    @include focus-ring;
+  }
+  
+  .small & {
+    right: $spacing-2;
+    width: 24px;
+    height: 24px;
+  }
+  
+  .large & {
+    right: $spacing-4;
+    width: 32px;
+    height: 32px;
+  }
+  
+  // Size-specific positioning when search button is present
+  .withSearchButton.small & {
+    right: 36px; // 28px (small search button width) + 8px (spacing)
+  }
+  
+  .withSearchButton.large & {
+    right: 52px; // 44px (large search button width) + 8px (spacing)
+  }
+}
+
+.loadingSpinner {
+  position: absolute;
+  right: $spacing-3;
+  color: var(--accent-primary);
+  animation: spin 1s linear infinite;
+  
+  .small & {
+    right: $spacing-2;
+    width: 16px;
+    height: 16px;
+  }
+  
+  .large & {
+    right: $spacing-4;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.errorMessage {
+  margin-top: $spacing-1;
+  font-size: $font-size-sm;
+  color: $error-color;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Dark theme specific adjustments
+[data-theme="dark"] {
+  .clearButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}

@@ -1,0 +1,279 @@
+/**
+ * SCSS Mixins - Reusable styling patterns
+ * Note: Use this file with @use to access mixins
+ */
+
+@use "sass:color";
+@use './variables' as *;
+
+// Focus styles for accessibility
+@mixin focus-outline {
+  outline: 2px solid $focus-color;
+  outline-offset: 2px;
+}
+
+@mixin focus-ring {
+  box-shadow: 0 0 0 3px rgba($focus-color, 0.3);
+}
+
+// Responsive breakpoints
+@mixin mobile-up {
+  @media (min-width: $breakpoint-sm) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: $breakpoint-md) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: $breakpoint-lg) {
+    @content;
+  }
+}
+
+// Modern button styles
+@mixin button-base {
+  // All declarations first
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-fast;
+  position: relative;
+  overflow: hidden;
+  
+  // Then nested rules
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+  
+  &:active::before {
+    width: 300px;
+    height: 300px;
+  }
+  
+  & > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $primary-blue;
+  color: $neutral-100;
+  
+  &:hover:not(:disabled) {
+    background-color: color.adjust($primary-blue, $lightness: -8%);
+  }
+  
+  &:focus {
+    @include focus-ring;
+  }
+}
+
+// Input styles
+@mixin input-base {
+  width: 100%;
+  border: 1px solid $border-color-light;
+  border-radius: $border-radius;
+  font-family: $font-family;
+  font-size: $font-size-base;
+  transition: all $transition-fast;
+  
+  &:focus {
+    outline: none;
+    border-color: $focus-color;
+    @include focus-ring;
+  }
+  
+  &:disabled {
+    background-color: $neutral-200;
+    cursor: not-allowed;
+  }
+  
+  &::placeholder {
+    color: $neutral-500;
+  }
+}
+
+// Checkbox styles to match input fields
+@mixin checkbox-base {
+  position: relative;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-radius: $border-radius-sm;
+  background: var(--bg-primary);
+  cursor: pointer;
+  transition: all $transition-fast;
+  
+  &:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    @include focus-ring;
+  }
+  
+  &:checked {
+    background: var(--accent-primary);
+    border-color: var(--accent-primary);
+    
+    &::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1;
+    }
+  }
+  
+  &:disabled {
+    background: var(--bg-tertiary);
+    border-color: var(--border-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+    
+    &:checked {
+      background: var(--text-muted);
+      border-color: var(--text-muted);
+    }
+  }
+}
+
+// Modern card styles
+@mixin card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  box-shadow: var(--shadow-lg);
+  transition: all $transition-base;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+}
+
+// Glass morphism card
+@mixin glass-card {
+  & {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: $border-radius-xl;
+    box-shadow: var(--shadow-xl);
+    transition: all $transition-base;
+  }
+}
+
+// Dropdown styles
+@mixin dropdown {
+  @include card;
+  position: absolute;
+  z-index: $z-dropdown;
+  min-width: $dropdown-min-width;
+  max-height: $dropdown-max-height;
+  overflow-y: auto;
+  box-shadow: $shadow-lg;
+}
+
+// Text truncation
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-truncate-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Loading animation
+@mixin loading-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Skeleton loading
+@mixin skeleton {
+  background: linear-gradient(90deg, $neutral-200 25%, $neutral-300 50%, $neutral-200 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Smooth scrollbar
+@mixin custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: $neutral-400 transparent;
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: $neutral-400;
+    border-radius: 3px;
+    
+    &:hover {
+      background-color: $neutral-500;
+    }
+  }
+}

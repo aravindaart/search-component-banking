@@ -1,0 +1,212 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use '../../styles/themes';
+
+.container {
+  width: 100%;
+  margin-top: $spacing-4;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-4;
+  width: 100%;
+  
+  @include mobile-up {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-3;
+  }
+  
+  @include tablet-up {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-5;
+  }
+  
+  @include desktop-up {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: $spacing-6;
+  }
+}
+
+.cardWrapper {
+  width: 100%;
+  
+  // Ensure search result cards fit the grid
+  > * {
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+  }
+}
+
+.groupedContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.group {
+  width: 100%;
+}
+
+.groupTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: var(--text-primary);
+  margin: 0 0 $spacing-4;
+  padding-bottom: $spacing-2;
+  border-bottom: 2px solid var(--accent-primary);
+  text-transform: capitalize;
+}
+
+// Loading states
+.loadingContainer {
+  width: 100%;
+}
+
+.loadingGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: $spacing-4;
+  
+  @include mobile-up {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: $spacing-3;
+  }
+  
+  @include tablet-up {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-5;
+  }
+  
+  @include desktop-up {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: $spacing-6;
+  }
+}
+
+.skeletonCard {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  box-shadow: var(--shadow-sm);
+  min-height: 120px;
+}
+
+.skeletonAvatar {
+  @include skeleton;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.skeletonContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.skeletonTitle {
+  @include skeleton;
+  height: 16px;
+  width: 70%;
+  border-radius: $border-radius-sm;
+}
+
+.skeletonSubtitle {
+  @include skeleton;
+  height: 14px;
+  width: 50%;
+  border-radius: $border-radius-sm;
+}
+
+// Empty state
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-12 $spacing-6;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-lg;
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyIcon {
+  font-size: 3rem;
+  margin-bottom: $spacing-4;
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-semibold;
+  color: var(--text-secondary);
+  margin: 0 0 $spacing-2;
+}
+
+.emptyDescription {
+  font-size: $font-size-base;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: $line-height-normal;
+  max-width: 400px;
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-sm) {
+  .cardsGrid,
+  .loadingGrid {
+    grid-template-columns: 1fr;
+    gap: $spacing-3;
+  }
+  
+  .cardWrapper > * {
+    min-height: 100px;
+  }
+  
+  .skeletonCard {
+    min-height: 100px;
+    padding: $spacing-3;
+  }
+  
+  .emptyState {
+    padding: $spacing-8 $spacing-4;
+  }
+  
+  .emptyIcon {
+    font-size: 2.5rem;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .skeletonCard,
+  .emptyState {
+    border-width: 2px;
+  }
+  
+  .groupTitle {
+    border-bottom-width: 3px;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .skeletonAvatar,
+  .skeletonTitle,
+  .skeletonSubtitle {
+    animation: none;
+    background: var(--bg-tertiary);
+  }
+}
