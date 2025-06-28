@@ -58,7 +58,7 @@
 }
 
 .resultItem {
-  margin: 0;
+  margin: 5px 0;
   padding: 0;
   
   &:not(:last-child) {
@@ -202,10 +202,26 @@
 }
 
 // Responsive adjustments
+@media (max-width: $breakpoint-sm) {
+  .dropdown {
+    min-width: 100%;
+    max-width: calc(100vw - 4rem);
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: $border-radius-lg;
+  }
+  
+  .loadingContainer,
+  .emptyState,
+  .errorState {
+    padding: $spacing-6;
+  }
+}
+
 @include mobile-up {
   .dropdown {
     min-width: 100%;
-    max-width: none;
+    max-width: 80%;
   }
   
   .loadingContainer,

@@ -64,6 +64,25 @@
 }
 
 // Responsive behavior
+@media (max-width: $breakpoint-sm) {
+  .smartSearch {
+    max-width: 100% !important;
+    
+    &.small,
+    &.medium,
+    &.large {
+      max-width: 100% !important;
+    }
+  }
+  
+  .dropdownContainer {
+    left: 0;
+    right: 0;
+    max-width: calc(100vw - 2rem);
+    margin: 0 1rem;
+  }
+}
+
 @include mobile-up {
   .smartSearch {
     &.small {

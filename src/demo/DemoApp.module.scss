@@ -213,10 +213,6 @@
   &:hover {
     background: var(--hover-bg);
   }
-  
-  input[type="checkbox"] {
-    @include checkbox-base;
-  }
 }
 
 .checkboxLabel {
